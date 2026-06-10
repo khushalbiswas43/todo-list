@@ -29,7 +29,13 @@ function saveTodos() {
 // Add new todo
 function addTodo() {
     const text = taskInput.value.trim();
-    if (text === '') return;
+    if (text === '') {
+        taskInput.classList.add('shake');
+        setTimeout(() => {
+            taskInput.classList.remove('shake');
+        }, 300);
+        return;
+    }
 
     const newTodo = {
         id: Date.now(),
@@ -57,10 +63,21 @@ function toggleTodo(id) {
 
 // Delete todo
 function deleteTodo(id) {
-    todos = todos.filter(t => t.id !== id);
-    editingId = null;
-    saveTodos();
-    render();
+    const todoElement = document.querySelector(`[data-id="${id}"]`);
+    if (todoElement) {
+        todoElement.classList.add('deleting');
+        setTimeout(() => {
+            todos = todos.filter(t => t.id !== id);
+            editingId = null;
+            saveTodos();
+            render();
+        }, 300);
+    } else {
+        todos = todos.filter(t => t.id !== id);
+        editingId = null;
+        saveTodos();
+        render();
+    }
 }
 
 // Edit todo
@@ -114,7 +131,7 @@ function render() {
     }
 
     todoList.innerHTML = filtered.map(todo => `
-        <li class="todo-item ${todo.completed ? 'completed' : ''}">
+        <li class="todo-item ${todo.completed ? 'completed' : ''}" data-id="${todo.id}">
             <input 
                 type="checkbox" 
                 class="checkbox"
