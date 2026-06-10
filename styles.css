@@ -521,7 +521,7 @@ body.dark-mode .stats {
 }
 
 .btn-delete {
-    color: #e74c3c;
+    color: red;
 }
 
 .btn-delete:hover {
