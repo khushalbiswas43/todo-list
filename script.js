@@ -171,5 +171,59 @@ filterBtns.forEach(btn => {
     });
 });
 
+// Navbar functionality
+const darkModeToggle = document.getElementById('darkModeToggle');
+const exportBtn = document.getElementById('exportBtn');
+const settingsBtn = document.getElementById('settingsBtn');
+const navbar = document.querySelector('.navbar');
+const body = document.body;
+
+// Dark mode toggle
+function toggleDarkMode() {
+    const isDarkMode = body.classList.toggle('dark-mode');
+    navbar.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode);
+    darkModeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+}
+
+darkModeToggle.addEventListener('click', toggleDarkMode);
+
+// Load dark mode preference
+function loadDarkModePreference() {
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (isDarkMode) {
+        body.classList.add('dark-mode');
+        navbar.classList.add('dark-mode');
+        darkModeToggle.textContent = '☀️';
+    }
+}
+
+// Export tasks
+function exportTasks() {
+    if (todos.length === 0) {
+        alert('No tasks to export!');
+        return;
+    }
+    
+    const dataStr = JSON.stringify(todos, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `tasks-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+exportBtn.addEventListener('click', exportTasks);
+
+// Settings (placeholder for future features)
+settingsBtn.addEventListener('click', () => {
+    alert('⚙️ Settings feature coming soon!\n\nUpcoming options:\n• Notification preferences\n• Task sorting\n• Export/Import settings');
+});
+
 // Initialize
+loadDarkModePreference();
 loadTodos();
