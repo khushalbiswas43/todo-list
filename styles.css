@@ -6,14 +6,16 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-gradient);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 20px;
+    padding: 0;
+    margin: 0;
     padding-top: 90px;
+    overflow-x: hidden;
 }
 
 /* Navigation Bar */
@@ -23,7 +25,7 @@ body {
     left: 0;
     right: 0;
     height: 70px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-gradient);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     animation: slideDown 0.4s ease-out;
@@ -77,6 +79,100 @@ body {
     align-items: center;
 }
 
+.color-picker-container {
+    position: relative;
+}
+
+#colorBtn {
+    font-size: 20px;
+}
+
+.color-picker-menu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    display: none;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 180px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    animation: slideDown 0.3s ease-out;
+}
+
+.color-picker-menu.active {
+    display: flex;
+}
+
+.color-option {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.color-option:hover {
+    transform: scale(1.15);
+    border-color: #333;
+}
+
+.color-option.active {
+    border-color: #333;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Color Themes */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --primary-dark: #667eea;
+    --primary-light: #764ba2;
+}
+
+body.theme-blue {
+    --primary-gradient: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    --primary-dark: #2196F3;
+    --primary-light: #1976D2;
+}
+
+body.theme-green {
+    --primary-gradient: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+    --primary-dark: #4CAF50;
+    --primary-light: #388E3C;
+}
+
+body.theme-orange {
+    --primary-gradient: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+    --primary-dark: #FF9800;
+    --primary-light: #F57C00;
+}
+
+body.theme-red {
+    --primary-gradient: linear-gradient(135deg, #F44336 0%, #D32F2F 100%);
+    --primary-dark: #F44336;
+    --primary-light: #D32F2F;
+}
+
+body.theme-pink {
+    --primary-gradient: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+    --primary-dark: #E91E63;
+    --primary-light: #C2185B;
+}
+
+body {
+    background: var(--primary-gradient);
+}
+
 .nav-btn {
     background: rgba(255, 255, 255, 0.15);
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -109,6 +205,17 @@ body {
 
 body.dark-mode {
     background: linear-gradient(135deg, #1a1f36 0%, #1e2139 100%);
+}
+
+.container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 100%;
+    margin: 20px;
+    padding: 30px;
+    animation: fadeInScale 0.5s ease;
 }
 
 body.dark-mode .container {
@@ -146,7 +253,7 @@ body.dark-mode .filter-btn {
 }
 
 body.dark-mode .filter-btn.active {
-    background: #667eea;
+    background: var(--primary-dark);
 }
 
 body.dark-mode .stats {
@@ -173,16 +280,6 @@ body.dark-mode .stats {
         height: 40px;
         font-size: 18px;
     }
-}
-
-.container {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
-    width: 100%;
-    padding: 30px;
-    animation: fadeInScale 0.5s ease;
 }
 
 .todo-header {
@@ -223,7 +320,7 @@ body.dark-mode .stats {
 
 .btn-add {
     padding: 12px 25px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-gradient);
     color: white;
     border: none;
     border-radius: 8px;
@@ -235,7 +332,7 @@ body.dark-mode .stats {
 
 .btn-add:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     animation: bounce 0.6s ease-in-out;
 }
 
@@ -263,15 +360,15 @@ body.dark-mode .stats {
 }
 
 .filter-btn.active {
-    background: #667eea;
+    background: var(--primary-dark);
     color: white;
-    border-color: #667eea;
+    border-color: var(--primary-dark);
     animation: fadeInScale 0.3s ease;
 }
 
 .filter-btn:hover {
-    border-color: #667eea;
-    color: #667eea;
+    border-color: var(--primary-dark);
+    color: var(--primary-dark);
     transform: scale(1.05);
 }
 
@@ -383,7 +480,7 @@ body.dark-mode .stats {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    accent-color: #667eea;
+    accent-color: var(--primary-dark);
     transition: transform 0.2s;
 }
 
@@ -415,7 +512,7 @@ body.dark-mode .stats {
 }
 
 .btn-edit {
-    color: #667eea;
+    color: var(--primary-dark);
 }
 
 .btn-edit:hover {
@@ -513,12 +610,13 @@ body.dark-mode .stats {
     body {
         padding-top: 80px;
         padding: 10px;
-        padding-top: 80px;
     }
 
     .container {
         max-width: 100%;
+        width: calc(100% - 20px);
         padding: 20px;
+        margin: 10px;
     }
 
     .todo-header h1 {
@@ -541,5 +639,15 @@ body.dark-mode .stats {
 
     .todo-list {
         max-height: 300px;
+    }
+
+    .color-picker-menu {
+        right: -30px;
+    }
+
+    .color-option {
+        width: 32px;
+        height: 32px;
+        font-size: 10px;
     }
 }

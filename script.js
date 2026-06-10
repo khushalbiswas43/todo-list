@@ -224,6 +224,62 @@ settingsBtn.addEventListener('click', () => {
     alert('⚙️ Settings feature coming soon!\n\nUpcoming options:\n• Notification preferences\n• Task sorting\n• Export/Import settings');
 });
 
+// Color theme functionality
+const colorBtn = document.getElementById('colorBtn');
+const colorPickerMenu = document.getElementById('colorPickerMenu');
+const colorOptions = document.querySelectorAll('.color-option');
+
+// Toggle color picker menu
+colorBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    colorPickerMenu.classList.toggle('active');
+});
+
+// Close color picker when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.color-picker-container')) {
+        colorPickerMenu.classList.remove('active');
+    }
+});
+
+// Change theme
+function setTheme(theme) {
+    // Remove all theme classes
+    document.body.classList.remove('theme-blue', 'theme-green', 'theme-orange', 'theme-red', 'theme-pink');
+    
+    // Add new theme class if not default purple
+    if (theme !== 'purple') {
+        document.body.classList.add(`theme-${theme}`);
+    }
+    
+    // Save preference
+    localStorage.setItem('theme', theme);
+    
+    // Update active indicator
+    colorOptions.forEach(option => {
+        option.classList.remove('active');
+        if (option.dataset.theme === theme) {
+            option.classList.add('active');
+        }
+    });
+    
+    colorPickerMenu.classList.remove('active');
+}
+
+// Handle color option clicks
+colorOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        setTheme(option.dataset.theme);
+    });
+});
+
+// Load theme preference
+function loadThemePreference() {
+    const theme = localStorage.getItem('theme') || 'purple';
+    setTheme(theme);
+}
+
 // Initialize
+loadThemePreference();
 loadDarkModePreference();
 loadTodos();
