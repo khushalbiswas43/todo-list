@@ -1,4 +1,4 @@
-# Todo List Application
+# Todo List App
 
 A modern, responsive todo list web application with local storage support. Organize your tasks efficiently with an intuitive interface featuring add, edit, delete, and filter capabilities.
 
