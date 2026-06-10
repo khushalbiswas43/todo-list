@@ -52,6 +52,11 @@ body {
 #taskInput:focus {
     outline: none;
     border-color: #667eea;
+    animation: fadeInScale 0.3s ease;
+}
+
+#taskInput.shake {
+    animation: shake 0.3s ease-in-out;
 }
 
 .btn-add {
@@ -69,6 +74,7 @@ body {
 .btn-add:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    animation: bounce 0.6s ease-in-out;
 }
 
 .btn-add:active {
@@ -90,7 +96,7 @@ body {
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     color: #666;
 }
 
@@ -98,11 +104,13 @@ body {
     background: #667eea;
     color: white;
     border-color: #667eea;
+    animation: fadeInScale 0.3s ease;
 }
 
 .filter-btn:hover {
     border-color: #667eea;
     color: #667eea;
+    transform: scale(1.05);
 }
 
 .todo-list {
@@ -135,6 +143,70 @@ body {
     }
 }
 
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes checkmark {
+    0% {
+        transform: scale(0.5) rotate(-45deg);
+    }
+    50% {
+        transform: scale(1.1) rotate(0deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 .todo-item:hover {
     background: #f0f0f0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -150,6 +222,11 @@ body {
     height: 20px;
     cursor: pointer;
     accent-color: #667eea;
+    transition: transform 0.2s;
+}
+
+.checkbox:checked {
+    animation: checkmark 0.6s ease-in-out;
 }
 
 .todo-text {
@@ -181,6 +258,7 @@ body {
 
 .btn-edit:hover {
     background: rgba(102, 126, 234, 0.1);
+    transform: scale(1.2) rotate(10deg);
 }
 
 .btn-delete {
@@ -189,6 +267,11 @@ body {
 
 .btn-delete:hover {
     background: rgba(231, 76, 60, 0.1);
+    transform: scale(1.2) rotate(-10deg);
+}
+
+.btn-delete:active {
+    animation: shake 0.3s ease-in-out;
 }
 
 .stats {
@@ -199,6 +282,7 @@ body {
     padding: 10px;
     background: #f9f9f9;
     border-radius: 8px;
+    animation: fadeInScale 0.5s ease;
 }
 
 .btn-clear {
@@ -217,6 +301,11 @@ body {
 .btn-clear:hover {
     background: #e74c3c;
     color: white;
+    transform: scale(1.02);
+}
+
+.btn-clear:active {
+    animation: pulse 0.3s ease;
 }
 
 .empty-state {
@@ -247,4 +336,12 @@ body {
 
 .todo-list::-webkit-scrollbar-thumb:hover {
     background: #764ba2;
+}
+
+.todo-item.deleting {
+    animation: slideOut 0.3s ease-in-out forwards;
+}
+
+.todo-item.completed {
+    animation: fadeInScale 0.3s ease;
 }
